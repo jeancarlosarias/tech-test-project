@@ -1,0 +1,50 @@
+services:
+  # Servicio para el microservicio ms-crud
+  ms-crud:
+    build: ./ms-crud
+    ports:
+      - "4001:443"  # Exponer puerto 443 para HTTPS en el contenedor a puerto 4001 en el host
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://mongo:27017/testdb  # Conexión a MongoDB
+    volumes:
+      - ./secrets/cert.key:/secrets/cert.key  # Montar la clave privada SSL en el contenedor
+      - ./secrets/cert.cert:/secrets/cert.cert  # Montar el certificado SSL en el contenedor
+    depends_on:
+      - mongo  # Esperar a que MongoDB esté disponible
+    networks:
+      - mynetwork
+
+  # Servicio para el microservicio ms-profile
+  ms-profile:
+    build: ./ms-profile
+    ports:
+      - "4002:443"  # Exponer puerto 443 para HTTPS en el contenedor a puerto 4002 en el host
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://mongo:27017/testdb  # Conexión a MongoDB
+    volumes:
+      - ./secrets:/secrets  # Montar la carpeta que contiene los certificados SSL en el contenedor
+    depends_on:
+      - mongo  # Esperar a que MongoDB esté disponible
+    networks:
+      - mynetwork
+
+  # Servicio para MongoDB
+  mongo:
+    image: mongo:latest  # Usar la imagen oficial de MongoDB
+    container_name: mongo
+    ports:
+      - "27017:27017"  # Exponer el puerto 27017 en el contenedor a 27017 en el host
+    volumes:
+      - mongo-data:/data/db  # Persistencia de datos en un volumen
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local

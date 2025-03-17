@@ -1,9 +1,17 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ProfileModule } from './modules/profile.module';
+import * as fs from 'fs';
+import * as path from 'path';
 
 async function bootstrap() {
-  const app = await NestFactory.create(ProfileModule);
-  await app.listen(process.env.PORT ?? 3000);
+  const certPath = path.join(__dirname, '../../secrets/cert.cert');
+  const keyPath = path.join(__dirname, '../../secrets/cert.key');
+  const httpsOptions = {
+  key: fs.readFileSync(keyPath),
+  cert: fs.readFileSync(certPath),
+};
+  const app = await NestFactory.create(ProfileModule, { httpsOptions }); // Creando la aplicación
+  await app.listen(3000);
 }
 bootstrap();
