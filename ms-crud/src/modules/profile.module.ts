@@ -11,14 +11,14 @@ import { JwtService } from '@nestjs/jwt';
 @Module({
   imports: [
     // se configura la conexion con el archivo .env y se importa el modulo de mongoose
-    ConfigModule.forRoot({
+    ConfigModule.forRoot({ 
         envFilePath: '.env',
         isGlobal: true,
       }),
       MongooseModule.forRoot(process.env.MONGO_URI || 'mongodb://localhost:27017/testdb'), 
       MongooseModule.forFeature([{ name: Profile.name, schema: ProfileSchema }]),
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
+      secret: process.env.JWT_SECRET || 'default_secret',
       signOptions: { expiresIn: '1h' },
     }),
   ],

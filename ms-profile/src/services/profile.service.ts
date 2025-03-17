@@ -11,7 +11,7 @@ export class ProfileService { // Servicio para el perfil
   ) {}
 
   // Metodo para obtener el perfil basado en el email
-  async getProfileByEmail(email: string): Promise<ProfileDTO> {
+  async getProfileByEmail(email: string): Promise<Profile> {
     const profile = await this.profileModel.findOne({ email }).exec(); // Buscando el perfil en la base de datos
     if (!profile) {
       throw new NotFoundException('Perfil no encontrado'); // Si no se encuentra el perfil, se lanza una excepcion

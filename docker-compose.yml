@@ -1,43 +1,54 @@
 services:
-  # Servicio para el microservicio ms-crud
   ms-crud:
     build: ./ms-crud
     ports:
-      - "4001:443"  # Exponer puerto 443 para HTTPS en el contenedor a puerto 4001 en el host
+      - "3000:3000" 
     environment:
       - NODE_ENV=production
-      - MONGO_URI=mongodb://mongo:27017/testdb  # Conexión a MongoDB
+      - MONGO_URI=mongodb://mongo:27017/testdb
     volumes:
-      - ./secrets/cert.key:/secrets/cert.key  # Montar la clave privada SSL en el contenedor
-      - ./secrets/cert.cert:/secrets/cert.cert  # Montar el certificado SSL en el contenedor
+      - ./secrets:/secrets
     depends_on:
-      - mongo  # Esperar a que MongoDB esté disponible
+      - mongo
     networks:
       - mynetwork
 
-  # Servicio para el microservicio ms-profile
   ms-profile:
     build: ./ms-profile
     ports:
-      - "4002:443"  # Exponer puerto 443 para HTTPS en el contenedor a puerto 4002 en el host
+      - "3001:3001" 
     environment:
       - NODE_ENV=production
-      - MONGO_URI=mongodb://mongo:27017/testdb  # Conexión a MongoDB
+      - MONGO_URI=mongodb://mongo:27017/testdb
     volumes:
-      - ./secrets:/secrets  # Montar la carpeta que contiene los certificados SSL en el contenedor
+      - ./secrets:/secrets
     depends_on:
-      - mongo  # Esperar a que MongoDB esté disponible
+      - mongo
     networks:
       - mynetwork
 
-  # Servicio para MongoDB
   mongo:
-    image: mongo:latest  # Usar la imagen oficial de MongoDB
+    image: mongo:latest
     container_name: mongo
     ports:
-      - "27017:27017"  # Exponer el puerto 27017 en el contenedor a 27017 en el host
+      - "27017:27017"
     volumes:
-      - mongo-data:/data/db  # Persistencia de datos en un volumen
+      - mongo-data:/data/db
+    networks:
+      - mynetwork
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8080:80"   # Expose HTTP on port 8080
+      - "4443:443"  # Expose HTTPS on port 4443
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./secrets:/etc/nginx/certs
+    depends_on:
+      - ms-crud
+      - ms-profile
     networks:
       - mynetwork
 

@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Profile } from '../schemas/profile.schema';
-import { JwtService } from '@nestjs/jwt';
 import { ProfileDTO } from 'src/interfaces/profile.dto';
 import { UpdateProfileDTO } from 'src/interfaces/updateProfile.dto';
 import { JwtAuthGuard } from '../guards/profile.guard';
@@ -12,7 +11,6 @@ export class ProfileService { // Servicio para el perfil
   constructor(
     @InjectModel(Profile.name) private readonly profileModel: Model<ProfileDTO>, // Inyectando
     private readonly jwtAuthGuard: JwtAuthGuard, // Inyectando JwtAuthGuard
-    private readonly jwtService: JwtService,  // Servicio para trabajar con JWT
   ) {}
 
   // Metodo para obtener el perfil basado en el email
