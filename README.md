@@ -15,7 +15,7 @@ Sistema compuesto por dos microservicios independientes pero coordinados:
 Características principales:
 - 🔒 Comunicación HTTPS/TLS 1.2
 - 🔑 Autenticación JWT 
-- 🐳 Dockerizado y listo para Kubernetes
+- 🐳 Dockerizado
 - 📊 Persistencia en MongoDB
 
 ## 🛠 Tecnologías
