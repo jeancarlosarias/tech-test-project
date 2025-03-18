@@ -31,7 +31,7 @@ export class JwtAuthGuard implements CanActivate {
     if (!authHeader || !authHeader.startsWith('Bearer ')) return null; // Si no hay encabezado o no comienza con 'Bearer' retorna null
     const token = authHeader.split(' ')[1]; // Retorna el token
     return token;
-}
+  }
 
   // Metodo para crear un token JWT
   createToken(payload: any): string {

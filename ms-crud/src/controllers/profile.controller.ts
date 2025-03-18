@@ -30,14 +30,14 @@ export class ProfileController {
     }
 
     // metodo para actualizar un perfil
-    @Put('update-profile')
+    @Put('update-profile/:email')
     @UseGuards(JwtAuthGuard) // Protegemos la ruta con el guard
     @ApiResponse({ status: 200, description: 'Perfil actualizado' })
     @ApiResponse({ status: 400, description: 'Solicitud incorrecta' })
     @ApiResponse({ status: 401, description: 'No autorizado' })
     @ApiResponse({ status: 404, description: 'No encontrado' })
     @ApiResponse({ status: 500, description: 'Error interno del servidor' })
-    async updateProfile(@Request() req: any): Promise<Profile> {
-        return this.profileService.updateProfile(req.body.email, req.body); // Actualizamos un perfil
+    async updateProfile(@Param() email: string, @Request() req: any): Promise<Profile> {
+        return this.profileService.updateProfile(email, req.body); // Actualizamos un perfil
     }
 }

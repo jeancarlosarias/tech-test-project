@@ -26,7 +26,7 @@ export class ProfileService { // Servicio para el perfil
     async createProfile(profile: ProfileDTO): Promise<{ profile: ProfileDTO, token: string }> {
         // Verificar si el correo ya está registrado
         if (await this.profileModel.exists({ email: profile.email })) {
-          throw new NotFoundException('El correo ya está registrado');
+          throw new NotFoundException('El correo ya esta registrado');
         }
     
         // Crear el nuevo perfil

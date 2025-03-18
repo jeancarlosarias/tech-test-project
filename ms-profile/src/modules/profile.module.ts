@@ -17,7 +17,7 @@ import { ConfigModule } from '@nestjs/config';
     MongooseModule.forRoot(process.env.MONGO_URI || 'mongodb://localhost:27017/testdb'), 
     MongooseModule.forFeature([{ name: Profile.name, schema: ProfileSchema }]),
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'default_secret',
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1h' },
     }),
   ],
