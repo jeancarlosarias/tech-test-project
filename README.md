@@ -15,7 +15,7 @@ Sistema compuesto por dos microservicios independientes pero coordinados:
 Características principales:
 - 🔒 Comunicación HTTPS/TLS 1.2
 - 🔑 Autenticación JWT 
-- 🐳 Dockerizado y listo para Kubernetes
+- 🐳 Dockerizado
 - 📊 Persistencia en MongoDB
 
 ## 🛠 Tecnologías
@@ -24,8 +24,8 @@ Características principales:
 |------------------|-----------------------------------------------------------------------------|
 | Backend          | NestJS, TypeScript, Mongoose                                               |
 | Base de Datos    | MongoDB 8.0+                                                               |
-| Seguridad        | JWT (RS256), HTTPS/TLS 1.2, Basic Auth                                     |
-| Infraestructura  | Docker, Kubernetes, OpenSSL                                                |
+| Seguridad        | JWT (RS256), HTTPS/TLS 1.2, Basic Auth,Nginx                                     |
+| Infraestructura  | Docker, OpenSSL                                                       |
 
 ## 🚀 Instalación
 
