@@ -5,7 +5,7 @@ services:
       - "3000:3000" 
     environment:
       - NODE_ENV=production
-      - MONGO_URI=mongodb://mongo:27017/testdb
+      - MONGO_URI=mongodb://host.docker.internal:27017/testdb # Especificamos que use los servicios de la maquina en ves del interno de Docker
     volumes:
       - ./secrets:/secrets
     depends_on:
@@ -19,7 +19,7 @@ services:
       - "3001:3001" 
     environment:
       - NODE_ENV=production
-      - MONGO_URI=mongodb://mongo:27017/testdb
+      - MONGO_URI=mongodb://host.docker.internal:27017/testdb
     volumes:
       - ./secrets:/secrets
     depends_on:

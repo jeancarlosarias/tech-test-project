@@ -37,7 +37,7 @@ export class ProfileController {
     @ApiResponse({ status: 401, description: 'No autorizado' })
     @ApiResponse({ status: 404, description: 'No encontrado' })
     @ApiResponse({ status: 500, description: 'Error interno del servidor' })
-    async updateProfile(@Param() email: string, @Request() req: any): Promise<Profile> {
+    async updateProfile(@Param('email') email: string, @Request() req: any): Promise<Profile> {
         return this.profileService.updateProfile(email, req.body); // Actualizamos un perfil
     }
 }
