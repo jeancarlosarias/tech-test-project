@@ -7,7 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 export class JwtAuthGuard implements CanActivate {
   constructor(private readonly jwtService: JwtService) {}
  
-  // Metodo para verificar si el token
+  // Metodo para verificar si el token 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest(); // Obtener la solicitud HTTP
     const token = this.extractTokenFromHeader(request); // Extraer el token del encabezado

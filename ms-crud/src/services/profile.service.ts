@@ -24,7 +24,7 @@ export class ProfileService { // Servicio para el perfil
 
     // Metodo para crear un perfil
     async createProfile(profile: ProfileDTO): Promise<{ profile: ProfileDTO, token: string }> {
-        // Verificar si el correo ya está registrado
+        // Verificar si el correo ya esta registrado
         if (await this.profileModel.exists({ email: profile.email })) {
           throw new NotFoundException('El correo ya esta registrado');
         }
@@ -35,9 +35,9 @@ export class ProfileService { // Servicio para el perfil
         // Guardar el perfil en la base de datos
         const savedProfile = await newProfile.save();
     
-        // Crear el token con la información del perfil
+        // Crear el token con la informacion del perfil
         const payload = { email: savedProfile.email, sub: savedProfile._id }; // El payload puede contener el ID y el email del perfil
-        const token = this.jwtAuthGuard.createToken(payload);  // Usamos el método del guard para generar el token
+        const token = this.jwtAuthGuard.createToken(payload);  // Usamos el metodo del guard para generar el token
     
         // Retornar tanto el perfil como el token
         return { profile: savedProfile, token };

@@ -7,7 +7,7 @@ import { ProfileDTO } from 'src/interfaces/profile.dto';
 @Injectable() 
 export class ProfileService { // Servicio para el perfil
   constructor(
-    @InjectModel(Profile.name) private readonly profileModel: Model<ProfileDTO>, // Inyectando
+    @InjectModel(Profile.name) private readonly profileModel: Model<ProfileDTO>, // Inyectando del modelo mongoDB
   ) {}
 
   // Metodo para obtener el perfil basado en el email
